@@ -1,6 +1,8 @@
+import React from 'react';
+
 const App = () => {
     return (
-        <div>Hello react</div>
+        <h1>React is working!</h1>
     )
 }
 

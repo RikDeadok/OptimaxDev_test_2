@@ -1,25 +1,25 @@
 const path = require('path')
-const fs = require('fs')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const PATHS = {
-  src: path.join(__dirname, '../src'),
-  dist: path.join(__dirname, '../dist'),
+  src: path.resolve(__dirname, '../src'),
+  dist: path.resolve(__dirname, '../dist'),
   assets: 'assets/'
 }
 
 module.exports = {
   externals: {
-    paths: PATHS
+    paths: PATHS,
   },
   entry: {
-    module: ["@babel/polyfill", `${PATHS.src}/index.jsx`],
+    module: `${PATHS.src}/index.js`,
   },
   output: {
-    filename: `${PATHS.assets}js/[name].[contenthash].js`,
-    path: PATHS.dist
+    path: `${PATHS.dist}`,
+    assetModuleFilename: 'assets/[hash][ext][query]',
+    clean: true
+
   },
   optimization: {
     splitChunks: {
@@ -35,79 +35,49 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
-        }
-      },
-      {
-        test: /\.m?jsx$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-react', '@babel/preset-env']
-          }
-        }
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]'
-        }
-      },
-      {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]'
-        }
-      },
-      {
-        test: /\.css$/,
+      { 
+        test: /\.(html)$/, 
         use: [
-          'style-loader',
+          'html-loader'
+        ] 
+      },
+      {
+        test: /\.m?js|jsx$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+          }
+        }
+      },
+      {
+        test: /\.(s[ac]|c)ss$/i,
+        use: [
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: { sourceMap: true }
           },
-          // {
-          //   loader: 'postcss-loader',
-          //   options: {
-          //     sourceMap: true,
-          //     config: { path: `./postcss.config.js` }
-          //   }
-          // }
-        ]
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          'style-loader',
-          MiniCssExtractPlugin.loader,
           {
-            loader: 'css-loader',
-            options: { sourceMap: true }
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+            }
           },
-          // {
-          //   loader: 'postcss-loader',
-          //   options: {
-          //     sourceMap: true,
-          //     config: { path: `./postcss.config.js` }
-          //   }
-          // },
           {
             loader: 'sass-loader',
             options: { sourceMap: true }
           }
         ]
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg|webp|ico)$/i,
+        type: 'asset/image',
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)$/i,
+        type: 'asset/fonts',
       },
     ]
   },
@@ -121,22 +91,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: `${PATHS.assets}css/[name].[contenthash].css`
     }),
-    // new CopyWebpackPlugin({
-    //   patterns: [
-    //     {
-    //       from: `${PATHS.src}/${PATHS.assets}img`,
-    //       to: `${PATHS.assets}img`
-    //     },
-    //     {
-    //       from: `${PATHS.src}/${PATHS.assets}fonts`,
-    //       to: `${PATHS.assets}fonts`
-    //     },
-    //     {
-    //       from: `${PATHS.src}/static`,
-    //       to: ''
-    //     }
-    //   ]
-    // }),
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/assets/index.html`,
     })
