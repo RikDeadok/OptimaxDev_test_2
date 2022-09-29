@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../../context';
-import './listItem.css';
+import './listItem.scss';
 
 function ListItem({ todo, index }) {
   const { removeTodo } = useContext(Context);

@@ -50,9 +50,7 @@
   flex: 1;
   padding: 0 30px;
   font-size: 18px;
-}
-@media (max-width: 767px) {
-  .todo-item__todo {
+  @media (max-width: 767px) {
     font-size: 14px;
   }
 }
@@ -63,9 +61,7 @@
   background-color: red;
   color: #ffffff;
   font-size: 32px;
-}
-@media (max-width: 767px) {
-  .todo-item__btn {
+  @media (max-width: 767px) {
     border-radius: 50px;
     min-width: 30px;
     min-height: 30px;
