@@ -1,41 +1,40 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import App from './App.jsx';
+import App from './App';
 
-describe("Testing render components", () => {
-
+describe('Testing render components', () => {
   test('renders learn react link', () => {
     render(<App />);
     const linkElement = screen.getByText(/to-do list/i);
     expect(linkElement).toBeInTheDocument();
   });
 
-  test("Render component", () => {
+  test('Render component', () => {
     const { getByRole, getByText, queryByRole } = render(<App />);
-    expect(getByRole("button")).toBeInTheDocument();
+    expect(getByRole('button')).toBeInTheDocument();
     expect(getByText(/Add to-do/i)).toBeInTheDocument();
-    expect(queryByRole("list")).not.toBeInTheDocument();
+    expect(queryByRole('list')).not.toBeInTheDocument();
   });
 });
 
-describe("Testing user event", () => {
+describe('Testing user event', () => {
 
   beforeAll(() => {
     localStorage.clear();
   });
 
-  test("Click button, with input's some text", () => {
+  test('Click button, with input's some text', () => {
     const { getByText, getByPlaceholderText, getByRole } = render(<App />);
     screen.debug();
     const inpt = getByPlaceholderText(/enter your to-do/i);
     const btn = getByText(/Add to-do/i);
     fireEvent.change(inpt, {
-      target: { value: "test" }
+      target: { value: 'test' }
     });
     screen.debug();
     fireEvent.click(btn);
     screen.debug();
-    expect(getByRole("listitem")).toHaveTextContent("test");
-    expect(localStorage.getItem("userTodos")).toEqual('["test"]');
+    expect(getByRole('listitem')).toHaveTextContent('test');
+    expect(localStorage.getItem('userTodos')).toEqual('['test']');
   });
 });
 

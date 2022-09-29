@@ -1,12 +1,12 @@
-const path = require('path')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const PATHS = {
   src: path.resolve(__dirname, '../src'),
   dist: path.resolve(__dirname, '../dist'),
-  assets: 'assets/'
-}
+  assets: 'assets/',
+};
 
 module.exports = {
   externals: {
@@ -18,8 +18,7 @@ module.exports = {
   output: {
     path: `${PATHS.dist}`,
     assetModuleFilename: 'assets/[hash][ext][query]',
-    clean: true
-
+    clean: true,
   },
   optimization: {
     splitChunks: {
@@ -28,18 +27,18 @@ module.exports = {
           name: 'vendors',
           test: /node_modules/,
           chunks: 'all',
-          enforce: true
-        }
-      }
-    }
+          enforce: true,
+        },
+      },
+    },
   },
   module: {
     rules: [
-      { 
-        test: /\.(html)$/, 
+      {
+        test: /\.(html)$/,
         use: [
-          'html-loader'
-        ] 
+          'html-loader',
+        ],
       },
       {
         test: /\.m?js|jsx$/,
@@ -48,8 +47,8 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             cacheDirectory: true,
-          }
-        }
+          },
+        },
       },
       {
         test: /\.(s[ac]|c)ss$/i,
@@ -57,19 +56,19 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
-            options: { sourceMap: true }
+            options: { sourceMap: true },
           },
           {
             loader: 'postcss-loader',
             options: {
               sourceMap: true,
-            }
+            },
           },
           {
             loader: 'sass-loader',
-            options: { sourceMap: true }
-          }
-        ]
+            options: { sourceMap: true },
+          },
+        ],
       },
       {
         test: /\.(png|jpe?g|gif|svg|webp|ico)$/i,
@@ -79,20 +78,25 @@ module.exports = {
         test: /\.(woff2?|eot|ttf|otf)$/i,
         type: 'asset/fonts',
       },
-    ]
+    ],
   },
   resolve: {
+    extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
+    enforceExtension: false,
+    symlinks: false,
+    cacheWithContext: false,
     alias: {
       '~': PATHS.src,
       '@': `${PATHS.src}/js`,
-    }
+    },
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: `${PATHS.assets}css/[name].[contenthash].css`
+      filename: `${PATHS.assets}css/[name].[contenthash].css`,
     }),
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/assets/index.html`,
-    })
-  ]
-}
+      favicon: `${PATHS.src}/assets/favicon.ico`,
+    }),
+  ],
+};

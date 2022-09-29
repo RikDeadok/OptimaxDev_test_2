@@ -1,24 +1,22 @@
-const webpack = require('webpack')
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const webpack = require('webpack');
 
-const { merge } = require('webpack-merge')
+const { merge } = require('webpack-merge');
 
-const baseWebpackConfig = require('./webpack.base.conf')
+const baseWebpackConfig = require('./webpack.base.conf');
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   mode: 'development',
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
   devServer: {
     port: 8081,
   },
   plugins: [
     new webpack.SourceMapDevToolPlugin({
-      filename: '[file].map'
+      filename: '[file].map',
     }),
-    new ReactRefreshWebpackPlugin()
-  ]
-})
+  ],
+});
 
 module.exports = new Promise((resolve, reject) => {
-  resolve(devWebpackConfig)
-})
+  resolve(devWebpackConfig);
+});
