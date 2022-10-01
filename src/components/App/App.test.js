@@ -22,19 +22,19 @@ describe('Testing user event', () => {
     localStorage.clear();
   });
 
-  test('Click button, with input's some text', () => {
+  test('Click button, with inputs some text', () => {
     const { getByText, getByPlaceholderText, getByRole } = render(<App />);
     screen.debug();
     const inpt = getByPlaceholderText(/enter your to-do/i);
     const btn = getByText(/Add to-do/i);
     fireEvent.change(inpt, {
-      target: { value: 'test' }
+      target: { value: 'test' },
     });
     screen.debug();
     fireEvent.click(btn);
     screen.debug();
     expect(getByRole('listitem')).toHaveTextContent('test');
-    expect(localStorage.getItem('userTodos')).toEqual('['test']');
+    expect(localStorage.getItem('userTodos')).toEqual(['test']);
   });
 });
 
