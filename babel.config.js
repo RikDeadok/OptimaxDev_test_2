@@ -4,6 +4,7 @@ module.exports = {
     '@babel/preset-react',
   ],
   plugins: [
+    '@babel/plugin-transform-modules-commonjs',
     '@babel/plugin-syntax-dynamic-import',
     '@babel/plugin-proposal-class-properties',
   ],

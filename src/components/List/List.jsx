@@ -7,7 +7,7 @@ function List({ list }) {
   return (
     <ul className="todo-list">
       {list.map((item, index) => (
-        <ListItem todo={item} index={index} key={item.toString()} />
+        <ListItem todo={item} index={index} key={index} />
       ))}
     </ul>
   );

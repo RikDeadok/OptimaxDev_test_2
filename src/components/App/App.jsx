@@ -18,8 +18,10 @@ function App() {
 
   // Записать данные в localstorage
   useEffect(() => {
-    if (todos.length) {
+    if (todos.length > 0) {
       localStorage.setItem('userTodos', JSON.stringify(todos));
+    } else {
+      localStorage.removeItem('userTodos');
     }
   }, [todos]);
 
@@ -34,7 +36,9 @@ function App() {
   };
 
   const removeTodo = (index) => {
-    setTodos(todos.filter((todo) => todos.indexOf(todo) !== index));
+    let newTodos = [...todos];
+    newTodos.splice(index, 1)
+    setTodos(newTodos);
   };
 
   const contextMemo = useMemo(() => ({ removeTodo }), [todos]);
