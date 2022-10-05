@@ -7,6 +7,9 @@
   padding: 10px 20px;
   margin-top: 20px;
 }
+.todo-item--checked {
+  text-decoration: line-through;
+}
 .checkbox__input {
   display: none;
 }

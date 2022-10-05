@@ -28,9 +28,13 @@ function App() {
   const handleInputChange = (event) => {
     setUserInput(event.target.value);
   };
+
   const handleClick = () => {
     if (userInput !== '') {
-      setTodos([...todos, userInput]);
+      setTodos([...todos, {
+        name: userInput,
+        checked: false,
+      }]);
       setUserInput('');
     }
   };
@@ -40,8 +44,14 @@ function App() {
     newTodos.splice(index, 1)
     setTodos(newTodos);
   };
+  
+  const changeChecked = (index) => {
+    let newTodos = [...todos];
+    newTodos[index].checked = !newTodos[index].checked;
+    setTodos(newTodos);
+  };
 
-  const contextMemo = useMemo(() => ({ removeTodo }), [todos]);
+  const contextMemo = useMemo(() => ({ removeTodo, changeChecked }), [todos]);
   return (
     <Context.Provider value={contextMemo}>
       <div className="wrapper">
