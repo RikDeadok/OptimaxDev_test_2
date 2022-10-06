@@ -81,7 +81,13 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
+    extensions: ['', '.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
+    modules: [
+      'node_modules',
+      'bower_components',
+      'shared',
+      '/shared/vendor/modules',
+    ],
     enforceExtension: false,
     symlinks: false,
     cacheWithContext: false,

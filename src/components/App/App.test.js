@@ -1,4 +1,6 @@
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import App from './App';
 
 describe('Testing render components', () => {
@@ -34,7 +36,7 @@ describe('Testing user event', () => {
     fireEvent.click(btn);
     screen.debug();
     expect(getByRole('listitem')).toHaveTextContent('test');
-    expect(localStorage.getItem('userTodos')).toEqual(['test']);
+    expect(localStorage.getItem('userTodos')).toEqual('[{\"name\":\"test\",\"checked\":false}]');
   });
 });
 
