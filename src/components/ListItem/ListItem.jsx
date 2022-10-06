@@ -10,7 +10,7 @@ function ListItem({ todo, index }) {
     <li className="todo-item">
       <strong>{index + 1}</strong>
       <div className="todo-item__checkbox">
-        <input className="checkbox__input" type="checkbox" id={index} name={index} onClick={() => changeChecked(index)} checked={todo.checked}/>
+        <input className="checkbox__input" type="checkbox" id={index} name={index} onChange={() => changeChecked(index)} checked={todo.checked}/>
         <label className="checkbox__label" htmlFor={index} />
       </div>
       <div className={`todo-item__todo ${todo.checked ? "todo-item--checked" : ""}`}>

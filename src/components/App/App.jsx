@@ -10,9 +10,9 @@ function App() {
 
   // Получить данные из localstorage
   useEffect(() => {
-    const todosStor = JSON.parse(localStorage.getItem('userTodos'));
-    if (todosStor) {
-      setTodos(todosStor);
+    const todosStore = JSON.parse(localStorage.getItem('userTodos'));
+    if (todosStore) {
+      setTodos(todosStore);
     }
   }, []);
 
